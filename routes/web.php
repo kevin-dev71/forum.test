@@ -17,9 +17,11 @@ use Intervention\Image\Facades\Image;
 
 Auth::routes();
 
+Route::get('/forums/clear_search', 'ForumsController@clearSearch')->name('forums.clear_search');
 Route::get('/forums/{forum}', 'ForumsController@show');
 Route::get('/', 'ForumsController@index');
 Route::post('/forums', 'ForumsController@store');
+Route::post('/forums/search', 'ForumsController@search');
 
 Route::get('/posts/{post}', 'PostsController@show');
 Route::post('/posts', 'PostsController@store');

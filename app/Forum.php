@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 
@@ -31,5 +32,15 @@ class Forum extends Model
 
     public function replies(){
         return $this->hasManyThrough(Reply::class, Post::class);
+    }
+
+    public function scopeSearch(Builder $query) {
+        $result = $query->with(['replies', 'posts']);
+        if($session = session('search')) {
+            $result
+                ->where('name', 'LIKE', '%' . $session . '%')
+                ->orWhere('description', 'LIKE', '%' . $session . '%');
+        }
+        return $result->withCount(['posts', 'replies'])->paginate(4);
     }
 }

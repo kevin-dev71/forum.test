@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 class RepliesController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth')->only(['store' , 'destroy']);
+    }
+
     public function store(){
         $this->validate(request() , [
             'reply' => ['required' , new ValidReply],

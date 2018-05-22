@@ -5,13 +5,17 @@
         <div class="col-md-8">
             <h1 class="text-center text-muted">{{ __('Foros') }}</h1>
 
+            @include('partials.forums.search')
+
+            <hr />
+
             @forelse($forums as $forum)
                 <div class="card">
                     <div class="card-header card-header-forum">
                         <a href="/forums/{{ $forum->slug }}" >{{ $forum->name }}</a>
                         <span class="pull-right">
-                            {{ __("Posts") }}: {{ $forum->posts->count() }},
-                            {{ __("Respuestas") }}: {{ $forum->replies->count() }}
+                            {{ __("Posts") }}: {{ $forum->posts_count }},
+                            {{ __("Respuestas") }}: {{ $forum->replies_count }}
                         </span>
                     </div>
 
